@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pedido de Namoro</title>
+    <style>
+        /* Recriando o degradê rosa do seu Canvas do Tkinter */
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to bottom, #9fc9f8 0%, #596ac7 50%, #4c3479 100%);
+            overflow: hidden;
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 40px;
+            border-radius: 15px;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        .botoes {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+        }
+
+        /* Container específico para o botão Não e o contador ficarem juntos */
+        .wrapper-nao {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        button {
+            padding: 10px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            background-color: #103763;
+            border: 2px solid white;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            background-color: #c8e2cd;
+        }
+
+        /* Estilo do contador de cliques */
+        .contador {
+            color: white;
+            font-weight: bold;
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 5px 10px;
+            border-radius: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Estilo da tela de sucesso */
+        .sucesso {
+            display: none;
+            text-align: center;
+            color: white;
+        }
+
+        .coracao {
+            font-size: 100px;
+            color: red;
+            animation: pulsar 1s infinite alternate;
+        }
+
+        @keyframes pulsar {
+            from { transform: scale(1); }
+            to { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="painel-pedido">
+        <h1>Você aceita sair algum dia comigo?</h1>
+        <div class="botoes">
+            <button onclick="aceitou()">Sim</button>
+            <div class="wrapper-nao">
+                <button id="btn-nao" onclick="recusou()">Não</button>
+                <span id="contador-cliques" class="contador">0</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="sucesso" id="painel-sucesso">
+        <div class="coracao">❤️</div>
+        <h1>Pedido para sair com sucesso kk</h1>
+    </div>
+
+    <script>
+        let tentativasNao = 0;
+        
+        // Insira o link do vídeo do YouTube que você deseja aqui:
+        const urlYoutube = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; 
+
+        // Lista de mensagens personalizadas para cada clique no "Não"
+        const mensagensNao = [
+            "Tem certeza disso? ",
+            "Pensa bem... so uma vez",
+            "Última chance."
+        ];
+
+        function aceitou() {
+            // Esconde o painel do pedido e mostra a tela de sucesso com o coração
+            document.getElementById('painel-pedido').style.display = 'none';
+            document.getElementById('painel-sucesso').style.display = 'block';
+        }
+
+        function recusou() {
+            tentativasNao++;
+            
+            // Atualiza o contador visual ao lado do botão
+            document.getElementById('contador-cliques').innerText = tentativasNao;
+
+            if (tentativasNao >= 4) {
+                // Na quarta tentativa, redireciona para o YouTube
+                window.location.href = urlYoutube;
+            } else {
+                // Pega a mensagem correspondente ao número do clique atual (0, 1 ou 2)
+                alert(mensagensNao[tentativasNao - 1]);
+            }
+        }
+    </script>
+</body>
+</html>
